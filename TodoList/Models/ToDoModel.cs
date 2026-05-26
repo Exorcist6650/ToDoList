@@ -4,16 +4,20 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace TodoList.Models
 {
     class ToDoModel : INotifyPropertyChanged
-    {
+    { 
         private bool _isChecked;
         private string _taskText;
 
+        [JsonProperty(PropertyName = "creationDate")]
         public DateTime CreationDate { get; set; } = DateTime.Now;
 
+
+        [JsonProperty(PropertyName = "isChecked")]
         public bool IsChecked
         {
             get { return _isChecked; }
@@ -22,11 +26,12 @@ namespace TodoList.Models
                 if (_isChecked == value) return;
                 
                 _isChecked = value;
-                OnPropertyChanged();    
+                OnPropertyChanged(nameof(IsChecked));    
             }
         }
 
 
+        [JsonProperty(PropertyName = "taskText")]
         public string TaskText
         {
             get { return _taskText; }
@@ -35,13 +40,13 @@ namespace TodoList.Models
                 if (_taskText == value) return;
 
                 _taskText = value;
-                OnPropertyChanged();
+                OnPropertyChanged(nameof(TaskText));
             }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged(string propertyName = "")
+        protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

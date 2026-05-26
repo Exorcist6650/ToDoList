@@ -49,5 +49,11 @@ namespace TodoList.Services
                 writer.Write(output);
             }
         }
+
+        public void ResetSavingFile()
+        {
+            File.Delete(PATH_TO_SAVED);
+            File.Create(PATH_TO_SAVED);
+        }
     }
 }

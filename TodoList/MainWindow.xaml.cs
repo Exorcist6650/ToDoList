@@ -42,6 +42,7 @@ namespace TodoList
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+                _fileIOService.ResetSavingFile();
                 Close();
             }
 
@@ -54,24 +55,29 @@ namespace TodoList
 
         private void _taskModelsData_ListChanged(object? sender, ListChangedEventArgs e)
         {
-            if (sender != null)
+            if (sender == null) return;
+
+            if (e.ListChangedType == ListChangedType.ItemAdded ||
+                e.ListChangedType == ListChangedType.ItemDeleted ||
+                e.ListChangedType == ListChangedType.ItemChanged ||
+                e.ListChangedType == ListChangedType.Reset)
             {
-                if (e.ListChangedType == ListChangedType.ItemAdded ||
-                    e.ListChangedType == ListChangedType.ItemDeleted ||
-                    e.ListChangedType == ListChangedType.ItemChanged)
+                try
                 {
-                    try
-                    {
-                        // Save tasks
-                        _fileIOService.SaveData(sender);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                        Close();
-                    }
+                    // Save tasks
+                    _fileIOService.SaveData(sender);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    Close();
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            _taskModelsData.Clear();
         }
     }
 }

@@ -9,10 +9,16 @@
     <Grid>
         <DataGrid x:Name ="dgTodoList" FontSize="12" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Header="Done" Width="80"/>
-                <DataGridTextColumn Binding="{Binding Path=CreationDate}"  IsReadOnly="True"  Header="CreationDate" Width="180"/>
-                <DataGridTextColumn Binding="{Binding Path=TaskText}" IsReadOnly="False" Header="Task" Width="*"/>
+                <DataGridCheckBoxColumn Binding="{Binding Path=IsChecked, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="False" Header="Done" 
+                                        CanUserReorder="False" CanUserResize="False" Width="80"/>
+                <DataGridTextColumn Binding="{Binding Path=CreationDate}"  IsReadOnly="True" Header="Creation date" 
+                                    CanUserReorder="False" CanUserResize="False" Width="180"/>
+                <DataGridTextColumn Binding="{Binding Path=TaskText}" IsReadOnly="False" Header="Task" 
+                                    CanUserReorder="False" CanUserResize="False" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Clear tasks" Width="100" Height="25" VerticalAlignment="Top" HorizontalAlignment="Right" Click="Button_Click">
+            
+        </Button>
     </Grid>
 </Window>
